@@ -1,18 +1,21 @@
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Section from './components/Section'
-import Footer from './components/Footer'
+// import React from 'react';
 
-function App() {
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import Navbar from './components/Navbar'
+// import Hero from './components/Hero'
+// import Section from './components/Section'
+// import Footer from './components/Footer'
 
-  return (
-    <>
-    <Navbar />
-    <Hero />
-    <Section />
-    <Footer />
-    </>
-  )
-}
+// function App() {
 
-export default App
+//   return (
+//     <>
+//     <Navbar />
+//     <Hero />
+//     <Section />
+//     <Footer />
+//     </>
+//   )
+// }
+
+// export default App
