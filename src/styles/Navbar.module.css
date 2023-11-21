@@ -1,0 +1,27 @@
+* {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.mainNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    height: 40px;
+}
+.logoImage {
+    max-width: 100%;
+    width: 200px;
+}
+
+.mainNav a {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.navItem {
+    margin-right: 0.5rem;
+    text-decoration: none;
+}
+
+.userIcon { padding-right: 5px }
