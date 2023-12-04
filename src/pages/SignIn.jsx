@@ -1,24 +1,28 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from '../styles/Signin.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
+import { useDispatch } from 'react-redux';
+import { authenticateUser } from '../features/user/userAsyncActions.js';
+
 function SignIn() {
-    const [username, setUsername] = useState('')
+    const dispatch = useDispatch()
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const isUsernameValid = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(username)
+    const isEmailValid = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)
     const isPasswordValid = /^(?=.*[a-z]).{3,}$/.test(password)
 
-    const isUsernameInvalid = !isUsernameValid && username !== ''
+    const isEmailInvalid = !isEmailValid && email !== ''
     const isPasswordInvalid = !isPasswordValid && password !== ''
 
     const handleSignIn = () => {
-        if (isUsernameValid && isPasswordValid) {
-            console.log('Signing in with:', { username, password })
+        if (isEmailValid && isPasswordValid) {
+            dispatch(authenticateUser({ email, password }));
         } else {
             console.log('Invalid username or password format')
         }
@@ -32,13 +36,13 @@ function SignIn() {
                     <FontAwesomeIcon icon={faUserCircle} className={styles.userIcon} />
                     <h1>Sign In</h1>
                     <form>
-                        <div className={`${styles.input} ${isUsernameInvalid && styles.invalid}`}>
+                        <div className={`${styles.input} ${isEmailInvalid && styles.invalid}`}>
                             <label>
                                 Username:
                                 <input
                                     type="text"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </label>
                         </div>
