@@ -4,6 +4,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         token: null,
+        isLoggedIn: false
     },
     reducers: {
         updateUser: (state, action) => {
@@ -20,6 +21,7 @@ const userSlice = createSlice({
         },
         logoutUser: (state) => {
             state.token = null;
+            state.isLoggedIn = false
         },
     },
 });
