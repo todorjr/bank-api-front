@@ -1,10 +1,18 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import styles from '../styles/Profile.module.css';
+
 
 function Profile() {
     return (
-        <div>
-        <h1>User Profile</h1>
+        <>
+        <Navbar />
+        <div className={styles.profileContent}>
+
         </div>
+        <Footer />
+        </>
     );
 }
 

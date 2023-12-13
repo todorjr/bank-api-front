@@ -9,7 +9,6 @@ import Footer from '../components/Footer'
 
 import { useSelector, useDispatch } from 'react-redux';
 import { authenticateUser } from '../features/user/userAsyncActions.js'
-import { userSlice } from '../features/user/userSlice.js'
 
 function SignIn() {
     const dispatch = useDispatch()
@@ -28,7 +27,6 @@ function SignIn() {
 
 
     useEffect(() => {
-        console.log(user);
         if (user.isLoggedIn) {
             navigate('/profile');
         } else {
