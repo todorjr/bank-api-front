@@ -1,16 +1,20 @@
 
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Signin.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
-import { useDispatch } from 'react-redux';
-import { authenticateUser } from '../features/user/userAsyncActions.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { authenticateUser } from '../features/user/userAsyncActions.js'
+import { userSlice } from '../features/user/userSlice.js'
 
 function SignIn() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -20,9 +24,22 @@ function SignIn() {
     const isEmailInvalid = !isEmailValid && email !== ''
     const isPasswordInvalid = !isPasswordValid && password !== ''
 
-    const handleSignIn = () => {
+    const user = useSelector((state) => state.user);
+
+
+    useEffect(() => {
+        console.log(user);
+        if (user.isLoggedIn) {
+            navigate('/profile');
+        } else {
+            console.log('Authentication error');
+        }
+    }, [navigate, user]);
+    
+
+    const handleSignIn = async () => {
         if (isEmailValid && isPasswordValid) {
-            dispatch(authenticateUser({ email, password }));
+            await dispatch(authenticateUser({ email, password }))
         } else {
             console.log('Invalid username or password format')
         }
