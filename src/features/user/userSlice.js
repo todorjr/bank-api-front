@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const userSlice = createSlice({
     name: 'user',
@@ -19,18 +19,17 @@ export const userSlice = createSlice({
             };
         },
         userAuthentication: (state, action) => {
-            state.token = action.payload.token;
+            state.token = action.payload.token
         },
         authenticateUserSuccess: (state) => {
-            state.isLoggedIn = true;
+            state.isLoggedIn = true
         },
         logoutUser: (state) => {
-            state.token = null;
+            state.token = null
             state.isLoggedIn = false
         },
     },
 });
 
-export const { getUser, updateUser, userAuthentication, authenticateUserSuccess, logoutUser } = userSlice.actions;
-export default userSlice.reducer;
-
+export const { getUser, updateUser, userAuthentication, authenticateUserSuccess, logoutUser } = userSlice.actions
+export default userSlice.reducer
