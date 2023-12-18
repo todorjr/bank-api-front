@@ -25,4 +25,27 @@ export const authenticateUser = (credentials) => async (dispatch) => {
         console.log('ERROR');
     }
 };
+export const getUserData = (credentials) => async (dispatch) => {
+
+    try {
+        // Make API call to get user data
+        const response = await fetch('http://localhost:3001/api/v1/user/profile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(credentials),
+        });
+
+        if (!response.ok) {
+            throw new Error('Authentication failed');
+        }
+
+        const data = await response.json();
+        dispatch({ type: 'SET_USER', payload: data, token: data.body.token })
+
+    } catch (error) {
+        console.log('ERROR', error);
+    }
+};
 

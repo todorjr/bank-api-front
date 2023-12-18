@@ -29,8 +29,6 @@ function SignIn() {
     useEffect(() => {
         if (user.isLoggedIn) {
             navigate('/profile');
-        } else {
-            console.log('Authentication error');
         }
     }, [navigate, user]);
     
