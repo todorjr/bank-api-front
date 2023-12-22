@@ -1,4 +1,4 @@
-import { userAuthentication, updateUser } from './userSlice';
+import { userAuthentication, updateUser, getUser } from './userSlice';
 
 export const authenticateUser = (credentials) => async (dispatch) => {
     try {
@@ -16,39 +16,36 @@ export const authenticateUser = (credentials) => async (dispatch) => {
         }
 
         const data = await response.json()
-        const { token } = data.body.token
+        const token = data.body.token
 
-        dispatch(userAuthentication({ token: data.token }))
+        dispatch(userAuthentication({ token }))
         dispatch(updateUser({ token, isLoggedIn: true }))
 
     } catch (error) {
         console.log('ERROR');
     }
 };
-export const getUserData = (credentials) => async (dispatch) => {
-    const token = dispatch(userAuthentication({ token: credentials.token }))
-    console.log(token)
-
+export const getUserData = (token) => async (dispatch) => {
     try {
-        // Make API call to get user data
-        const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(credentials),
-        });
+    const response = await fetch('http://localhost:3001/api/v1/user/profile', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
-        if (!response.ok) {
-            throw new Error('Authentication failed');
-        }
+    if (!response.ok) {
+        throw new Error('Authentication failed');
+    }
 
-        const data = await response.json();
-        dispatch({ type: 'SET_USER', payload: data })
+    const data = await response.json();
+    console.log(data);
+
+    dispatch(getUser(data));
 
     } catch (error) {
         console.log('ERROR', error);
     }
-};
+}
 

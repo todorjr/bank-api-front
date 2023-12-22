@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import styles from '../styles/Profile.module.css'
@@ -6,43 +6,34 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getUserData } from '../features/user/userAsyncActions.js'
 
 function Profile() {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const dispatch = useDispatch()
-    const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user)
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            // Dispatch action to fetch user data
-            await dispatch(getUserData({ firstName, lastName }))
-          } catch (error) {
-            console.error('Error fetching user data', error)
-          }
-        }
-    
-        // Call fetchData to trigger the dispatch
-        fetchData()
-      }, [dispatch, firstName, lastName])
-    
-      // Access the updated user data from the Redux store
-      const { firstName: userFirstName, lastName: userLastName } = user
-    
-      // Set local state based on user data
-      useEffect(() => {
-        setFirstName(userFirstName || '')
-        setLastName(userLastName || '')
-      }, [userFirstName, userLastName])
-    
-    return (
-        <>
-        <Navbar />
-        <div className={styles.profileContent}>
-            <h1>Welcome back {firstName} {lastName}</h1>
-        </div>
-        <Footer />
-        </>
-    )
+  useEffect(() => {
+    if (user.token) {
+      dispatch(getUserData(user.token))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.token])
+
+  console.log(user);
+
+  return (
+    <>
+      <Navbar />
+      <div className={styles.profileContent}>
+        <h1>Welcome back</h1>
+        {user && (
+          <div>
+            <p>First Name: {user.firstName}</p>
+            <p>Last Name: {user.lastName}</p>
+          </div>
+        )}
+      </div>
+      <Footer />
+    </>
+  )
 }
 
 export default Profile
+
