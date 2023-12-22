@@ -31,11 +31,9 @@ function Profile() {
       // Set local state based on user data
       useEffect(() => {
         setFirstName(userFirstName || '')
-        setLastName(userLastName || '')  
+        setLastName(userLastName || '')
       }, [userFirstName, userLastName])
     
-      console.log(firstName, lastName)
-
     return (
         <>
         <Navbar />

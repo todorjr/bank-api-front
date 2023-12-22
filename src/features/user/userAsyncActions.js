@@ -26,6 +26,8 @@ export const authenticateUser = (credentials) => async (dispatch) => {
     }
 };
 export const getUserData = (credentials) => async (dispatch) => {
+    const token = dispatch(userAuthentication({ token: credentials.token }))
+    console.log(token)
 
     try {
         // Make API call to get user data
@@ -33,6 +35,7 @@ export const getUserData = (credentials) => async (dispatch) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(credentials),
         });
@@ -42,7 +45,7 @@ export const getUserData = (credentials) => async (dispatch) => {
         }
 
         const data = await response.json();
-        dispatch({ type: 'SET_USER', payload: data, token: data.body.token })
+        dispatch({ type: 'SET_USER', payload: data })
 
     } catch (error) {
         console.log('ERROR', error);
