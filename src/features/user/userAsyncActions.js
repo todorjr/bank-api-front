@@ -17,7 +17,6 @@ export const authenticateUser = (credentials) => async (dispatch) => {
 
         const data = await response.json()
         const token = data.body.token
-
         dispatch(userAuthentication({ token }))
         dispatch(updateUser({ token, isLoggedIn: true }))
 
@@ -33,16 +32,14 @@ export const getUserData = (token) => async (dispatch) => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-    });
+    })
 
     if (!response.ok) {
         throw new Error('Authentication failed');
     }
 
-    const data = await response.json();
-    console.log(data);
-
-    dispatch(getUser(data));
+    const data = await response.json()
+    dispatch(getUser(data))
 
     } catch (error) {
         console.log('ERROR', error);
