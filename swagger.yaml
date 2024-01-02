@@ -39,6 +39,20 @@ paths:
             $ref: '#/definitions/Transaction'
         404:
           description: Transaction not found
+    post:
+      summary: Create a new transaction
+      description: Adds a new transaction to the system.
+      parameters:
+        - in: body
+          name: transaction
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      responses:
+        201:
+          description: Transaction created
+        400:
+          description: Invalid input
 
     put:
       summary: Update a transaction
