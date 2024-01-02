@@ -31,12 +31,12 @@ function Navbar () {
                         <FontAwesomeIcon icon={faCircleUser} className={styles.profileIcon} />
                         <span className={styles.userName}>{user.firstName}</span>
                         <FontAwesomeIcon icon={faSignOutAlt} className={styles.userIcon} />
-                        Sign Out
+                        <span>Sign Out</span>
                     </Link>
                 ) : (
                     <Link to="/signin" className={styles.navItem}>
                         <FontAwesomeIcon icon={faUserCircle} className={styles.userIcon} />
-                        Sign In
+                        <span>Sign In</span>
                     </Link>
                 )}
                 </div>
