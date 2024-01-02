@@ -39,6 +39,7 @@ paths:
             $ref: '#/definitions/Transaction'
         404:
           description: Transaction not found
+
     post:
       summary: Create a new transaction
       description: Adds a new transaction to the system.
