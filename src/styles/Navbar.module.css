@@ -1,5 +1,7 @@
 * {
     font-family: Avenir, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .mainNav {
@@ -7,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px 20px;
-    height: 40px;
+    height: 60px;
 }
 .logoImage {
     max-width: 100%;

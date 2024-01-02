@@ -10,7 +10,10 @@
     text-align: center;
     color: #fff;
     margin-bottom: 2rem;
+    padding-top: 10px;
 }
+.header h1 { margin-bottom: 10px }
+
 .edit {
     border-color: #00bc77;
     background-color: #00bc77;
