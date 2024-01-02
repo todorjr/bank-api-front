@@ -1,4 +1,4 @@
-import { userAuthentication, updateUser, getUser } from './userSlice';
+import { userAuthentication, updateUser, getUser } from './userSlice'
 
 export const authenticateUser = (credentials) => async (dispatch) => {
     try {
@@ -9,10 +9,10 @@ export const authenticateUser = (credentials) => async (dispatch) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(credentials),
-        });
+        })
 
         if (!response.ok) {
-            throw new Error('Authentication failed');
+            throw new Error('Authentication failed')
         }
 
         const data = await response.json()
@@ -21,9 +21,10 @@ export const authenticateUser = (credentials) => async (dispatch) => {
         dispatch(updateUser({ token, isLoggedIn: true }))
 
     } catch (error) {
-        console.log('ERROR');
+        console.log('ERROR')
     }
-};
+}
+
 export const getUserData = (token) => async (dispatch) => {
     try {
     const response = await fetch('http://localhost:3001/api/v1/user/profile', {
@@ -35,14 +36,38 @@ export const getUserData = (token) => async (dispatch) => {
     })
 
     if (!response.ok) {
-        throw new Error('Authentication failed');
+        throw new Error('Authentication failed')
     }
 
     const data = await response.json()
     dispatch(getUser(data))
 
     } catch (error) {
-        console.log('ERROR', error);
+        console.log('ERROR', error)
     }
 }
+
+export const updateUserData = (token, userDetails) => async (dispatch) => {
+    try {
+        const response = await fetch('http://localhost:3001/api/v1/user/profile', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(userDetails),
+        })
+
+        if (!response.ok) {
+            throw new Error('Failed to update user details')
+        }
+
+        const data = await response.json()
+        dispatch(updateUser(data.body))
+
+    } catch (error) {
+        console.log('ERROR', error)
+    }
+}
+
 

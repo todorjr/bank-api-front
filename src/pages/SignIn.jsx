@@ -25,7 +25,6 @@ function SignIn() {
 
     const user = useSelector((state) => state.user);
 
-
     useEffect(() => {
         if (user.isLoggedIn) {
             navigate('/profile');
