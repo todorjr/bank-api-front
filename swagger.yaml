@@ -30,6 +30,8 @@ paths:
         404:
           description: No transactions found for the specified month
 
+
+
   /transactions/{transactionId}:
     get:
       summary: Get details of a specific transaction
@@ -63,8 +65,8 @@ paths:
           description: Invalid input
 
     patch:
-      summary: Partially update a transaction
-      description: Updates specific fields of an existing transaction.
+      summary: Partially update or delete a transaction
+      description: Updates or delete specific fields of an existing transaction.
       parameters:
         - name: transactionId
           in: path
@@ -91,39 +93,6 @@ paths:
           description: Invalid input
         404:
           description: Transaction not found
-
-    patch:
-      summary: Partially delete fields in a transaction
-      description: Removes specific fields or sets them to their default values in an existing transaction.
-      parameters:
-        - name: transactionId
-          in: path
-          required: true
-          type: string
-        - in: body
-          name: transactionDelete
-          required: true
-          schema:
-            type: object
-            properties:
-              date:
-                type: string
-                format: date
-                description: Set to null to remove the date.
-                nullable: true
-              amount:
-                type: number
-                format: double
-                description: Set to null to remove the amount.
-                nullable: true
-      responses:
-        200:
-          description: Transaction fields partially deleted
-        400:
-          description: Invalid input
-        404:
-          description: Transaction not found
-
 
 definitions:
   Transaction:
