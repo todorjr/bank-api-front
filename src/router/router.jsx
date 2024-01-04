@@ -5,9 +5,10 @@ import Home from '../pages/Home'
 import SignIn from '../pages/SignIn'
 import Profile from '../pages/Profile'
 
-function ProtectedRoute({ component }) {
+// eslint-disable-next-line react/prop-types
+function ProtectedRoute({ children }) {
     const user = useSelector((state) => state.user)
-    return user && user.isLoggedIn ? component : <Navigate to="/signin" />
+    return user && user.isLoggedIn ? children : <Navigate to="/signin" />
 }
 
 function AppRouter() {
