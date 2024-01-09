@@ -1,13 +1,13 @@
 
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 import styles from '../styles/Signin.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 import { authenticateUser } from '../features/user/userAsyncActions.js'
 
 function SignIn() {
@@ -23,13 +23,13 @@ function SignIn() {
     const isEmailInvalid = !isEmailValid && email !== ''
     const isPasswordInvalid = !isPasswordValid && password !== ''
 
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user)
 
     useEffect(() => {
         if (user.isLoggedIn) {
-            navigate('/profile');
+            navigate('/profile')
         }
-    }, [navigate, user]);
+    }, [navigate, user])
     
 
     const handleSignIn = async () => {

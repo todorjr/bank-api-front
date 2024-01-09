@@ -17,7 +17,7 @@ export const userSlice = createSlice({
             return {
                 ...state,
                 ...action.payload,
-            };
+            }
         },
         userAuthentication: (state, action) => {
             state.token = action.payload.token
@@ -30,7 +30,7 @@ export const userSlice = createSlice({
             state.isLoggedIn = false
         },
     },
-});
+})
 
 export const { getUser, updateUser, userAuthentication, authenticateUserSuccess, logoutUser, setUserData } = userSlice.actions
 export default userSlice.reducer
