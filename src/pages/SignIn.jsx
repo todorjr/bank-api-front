@@ -16,19 +16,43 @@ function SignIn() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [emailError, setEmailError] = useState(null)
+    const [passError, setPassError] = useState(null)
+
     const { isLoggedIn, authError } = useSelector((state) => state.user)
 
+    const validateEmail = (email) => {
+        if (!email) {
+            setEmailError('Invalid email format')
+            return false
+        }
+        setEmailError('')
+        return true
+    }
+
+    const validatePassword = (password) => {
+        if (!password) {
+            setPassError('Invalid password')
+            return false
+        }
+        setPassError('')
+        return true
+    }
+
+    const handleSignIn = async () => {
+        const isEmailValid = validateEmail(email)
+        const isPasswordValid = validatePassword(password)
+
+        if (isEmailValid && isPasswordValid) {
+            await dispatch(authenticateUser({ email, password }))
+        }
+    }
 
     useEffect(() => {
         if (isLoggedIn) {
             navigate('/profile')
         }
     }, [navigate, isLoggedIn])
-    
-
-    const handleSignIn = async () => {
-        await dispatch(authenticateUser({ email, password }))
-    }
 
     return (
         <>
@@ -43,11 +67,13 @@ function SignIn() {
                                 Username:
                                 <input
                                     type="text"
-                                    className={`${authError ? styles.invalidAuth : ''}`}
+                                    className={`${emailError ? styles.invalidAuth : ''}`}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </label>
+                            {emailError && <div className={styles.errorMessage}>{emailError}</div>}
+
                         </div>
                         <br />
                         <div className={styles.input}>
@@ -55,11 +81,13 @@ function SignIn() {
                                 Password:
                                 <input
                                     type="password"
-                                    className={`${authError ? styles.invalidAuth : ''}`}
+                                    className={`${passError ? styles.invalidAuth : ''}`}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </label>
+                            {passError && <div className={styles.errorMessage}>{passError}</div>}
+
                         </div>
                         {authError && <div className={styles.errorMessage}>Authentication Failed. Please try again.</div>}
                         <br />

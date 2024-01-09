@@ -34,8 +34,12 @@
     margin-bottom: 1rem;
 } 
 
-.invalid input { border: 1px solid red }
 .invalidAuth { border: 1px solid red }
+.errorMessage {
+    color: red; 
+    font-size: 13px;
+    text-align: initial;
+}
 
 .input label { font-weight: bold }
 .input input {
