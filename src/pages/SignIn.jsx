@@ -72,7 +72,7 @@ function SignIn() {
                         <br />
                         <div className={styles.remember}>
                             <input type="checkbox" id="remember-me" />
-                            <label htmlFor="remember-me">Remember me</label>
+                            <label htmlFor="remember-me" className={styles.rememberLabel}>Remember me</label>
                         </div>
                         <br />
                         <button className={styles.btn} type="button" onClick={handleSignIn}>
