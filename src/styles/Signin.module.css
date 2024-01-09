@@ -34,9 +34,9 @@
     margin-bottom: 1rem;
 } 
 
-.invalid input {
-    border: 1px solid red
-}
+.invalid input { border: 1px solid red }
+.invalidAuth { border: 1px solid red }
+
 .input label { font-weight: bold }
 .input input {
     padding: 5px;

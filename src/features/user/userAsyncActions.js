@@ -1,4 +1,4 @@
-import { userAuthentication, updateUser, getUser } from './userSlice'
+import { userAuthentication, updateUser, getUser, setAuthError } from './userSlice'
 
 export const authenticateUser = (credentials) => async (dispatch) => {
     try {
@@ -17,11 +17,14 @@ export const authenticateUser = (credentials) => async (dispatch) => {
 
         const data = await response.json()
         const token = data.body.token
+
+        dispatch(setAuthError(null));
         dispatch(userAuthentication({ token }))
         dispatch(updateUser({ token, isLoggedIn: true }))
 
     } catch (error) {
         console.log('ERROR')
+        dispatch(setAuthError('Authentication failed'));
     }
 }
 
