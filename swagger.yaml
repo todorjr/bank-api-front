@@ -9,12 +9,17 @@ schemes:
   - https
   - http
 paths:
-  /transactions/{month}:
+  /account/{accountId}/transactions:
     get:
-      summary: Retrieve transactions for a specified month
-      description: Fetches all transactions grouped by account for a specified month. The month parameter is an integer where 0 represents the current month, 1 the previous month, and so on.
+      summary: Retrieve transactions for a specified account
+      description: Fetches all transactions for a specified account. Optionally, transactions can be filtered by a specified month if the month parameter is provided.
       parameters:
         - in: path
+          name: accountId
+          required: true
+          description: The unique identifier of the account
+          type: integer
+        - in: query
           name: month
           required: false
           default: 0
@@ -22,17 +27,15 @@ paths:
           type: integer
       responses:
         200:
-          description: A list of transactions for the specified month
+          description: A list of transactions for the specified account or month
           schema:
             type: array
             items:
               $ref: '#/definitions/Transaction'
         404:
-          description: No transactions found for the specified month
+          description: No transactions found for the specified account or month
 
-
-
-  /transactions/{transactionId}:
+  /transaction/{transactionId}:
     get:
       summary: Get details of a specific transaction
       description: Fetches details of a specified transaction.
@@ -48,25 +51,11 @@ paths:
             $ref: '#/definitions/Transaction'
         404:
           description: Transaction not found
-
-    post:
-      summary: Create a new transaction
-      description: Adds a new transaction to the system.
-      parameters:
-        - in: body
-          name: transaction
-          required: true
-          schema:
-            $ref: '#/definitions/Transaction'
-      responses:
-        201:
-          description: Transaction created
-        400:
-          description: Invalid input
-
+  
+  /transaction/{transactionId}/update:
     patch:
-      summary: Partially update or delete a transaction
-      description: Updates or delete specific fields of an existing transaction.
+      summary: Partially update a transaction's category or notes
+      description: Updates specific fields (category or notes) of an existing transaction.
       parameters:
         - name: transactionId
           in: path
@@ -78,14 +67,14 @@ paths:
           schema:
             type: object
             properties:
-              date:
+              category:
                 type: string
-                format: date
-                description: The new date of the transaction.
-              amount:
-                type: number
-                format: double
-                description: The new amount of the transaction.
+                format: text
+                description: The new category of the transaction.
+              notes:
+                type: string
+                format: text
+                description: The new notes of the transaction.
       responses:
         200:
           description: Transaction partially updated
@@ -95,16 +84,3 @@ paths:
           description: Transaction not found
 
 definitions:
-  Transaction:
-    type: object
-    properties:
-      id:
-        type: string
-      account:
-        type: string
-      amount:
-        type: number
-      date:
-        type: string
-      description:
-        type: string
