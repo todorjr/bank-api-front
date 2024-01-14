@@ -84,3 +84,16 @@ paths:
           description: Transaction not found
 
 definitions:
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+      account:
+        type: string
+      amount:
+        type: number
+      date:
+        type: string
+      description:
+        type: string
