@@ -97,3 +97,9 @@ definitions:
         type: string
       description:
         type: string
+      category:
+        type: string
+      notes:
+        type: string
+      transactionType:
+        type: string
